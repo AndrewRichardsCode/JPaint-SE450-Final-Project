@@ -2,6 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
+import controller.MouseHandler;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -23,13 +24,18 @@ public class Main {
 
         // For example purposes only; remove all lines below from your final project.
 
+
+
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        // Filled in rectangle
+        MouseHandler mouse = new MouseHandler(appState, paintCanvas);
+        paintCanvas.addMouseListener(mouse);
+
+        /*// Filled in rectangle
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(Color.GREEN);
         graphics2d.fillRect(12, 13, 200, 400);
@@ -43,7 +49,7 @@ public class Main {
         Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.BLACK);
-        graphics2d.drawRect(7, 8, 210, 410);
+        graphics2d.drawRect(7, 8, 210, 410);*/
 
         // Clears the Canvas
         //paintCanvas.repaint();
