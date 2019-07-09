@@ -37,9 +37,9 @@ public class MouseHandler extends MouseAdapter
     {
         end = new Point(e.getX(), e.getY());
 
-        if(currentState.getActiveStartAndEndPointMode() == StartAndEndPointMode.DRAW);
+        if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.DRAW))
         {
-            //set width and xOrigin
+            //---set width and xOrigin---
             if(end.getX() > start.getX())
             {
                 width = end.getX() - start.getX();
@@ -51,7 +51,7 @@ public class MouseHandler extends MouseAdapter
                     xOrigin = end.getX();
                 }
 
-            //set height and yOrigin
+            //---set height and yOrigin---
             if (end.getY() > start.getY())
             {
                 height = end.getY() - start.getY();
@@ -63,10 +63,11 @@ public class MouseHandler extends MouseAdapter
                     yOrigin = start.getY() - height;
                 }
 
-            paintCanvas.getGraphics2D().fillRect(xOrigin, yOrigin, width, height);
+            Shape rect = new Shape(paintCanvas);
+            rect.DrawRect(xOrigin, yOrigin, width, height);
         }
     }
 
     //public void mouseDragged (MouseEvent e) {}
-    
+
 }
