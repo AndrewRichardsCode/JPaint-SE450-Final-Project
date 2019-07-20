@@ -1,8 +1,8 @@
 package model.interfaces;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 public interface ICommand
 {
-    void run() throws IOException; //need IOException?
+    void run(); //throws IOException; need IOException?
 }

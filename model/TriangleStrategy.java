@@ -1,11 +1,14 @@
 package model;
 
-import model.interfaces.IDrawShape;
+import controller.Point;
+import model.interfaces.IDrawShapeStrategy;
+import view.interfaces.PaintCanvasBase;
 
-public class TriangleStrategy implements IDrawShape
+public class TriangleStrategy implements IDrawShapeStrategy
 {
     @Override
-    public void drawShape() {
+    public void drawShape(PaintCanvasBase paintCanvas, Point pointStart, Point pointEnd)
+    {
 
     }
 }

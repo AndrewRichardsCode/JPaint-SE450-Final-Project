@@ -1,18 +1,14 @@
 package model;
 
-import view.interfaces.PaintCanvasBase;
+import model.interfaces.IDrawShapeStrategy;
 
 public class Shape
 {
-    private PaintCanvasBase paintCanvas;
 
-    public Shape(PaintCanvasBase paintCanvas)
-    {
-        this.paintCanvas = paintCanvas;
-    }
+    IDrawShapeStrategy drawShapeStrategy;
 
-    public void DrawRect(int xOrigin, int yOrigin, int width,int  height)
+    public Shape(IDrawShapeStrategy drawShapeStrategy)
     {
-        paintCanvas.getGraphics2D().fillRect(xOrigin, yOrigin, width, height);
+        this.drawShapeStrategy = drawShapeStrategy;
     }
 }

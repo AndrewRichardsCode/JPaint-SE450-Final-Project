@@ -3,6 +3,7 @@ package main;
 import controller.IJPaintController;
 import controller.JPaintController;
 import controller.MouseHandler;
+import model.DrawCommand;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -31,6 +32,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         MouseHandler mouse = new MouseHandler(appState, paintCanvas);
         paintCanvas.addMouseListener(mouse);

@@ -12,13 +12,7 @@ public class MouseHandler extends MouseAdapter
 
     private IApplicationState currentState;
     private PaintCanvasBase paintCanvas;
-    private Point start;
-    private Point end;
-    private int width;
-    private int height;
-    private int xOrigin;
-    private int yOrigin;
-
+    private Point pointStart;
 
     public MouseHandler(IApplicationState currentState, PaintCanvasBase paintCanvas)
     {
@@ -29,45 +23,27 @@ public class MouseHandler extends MouseAdapter
     @Override
     public void mousePressed (MouseEvent e)
     {
-        start = new Point(e.getX(), e.getY());
+        pointStart = new Point(e.getX(), e.getY());
     }
 
     @Override
     public void mouseReleased (MouseEvent e)
     {
-        end = new Point(e.getX(), e.getY());
+        ICommand command;
+        Point pointEnd = new Point(e.getX(), e.getY());
 
         if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.DRAW))
         {
-            //---set width and xOrigin---
-            if(end.getX() > start.getX())
-            {
-                width = end.getX() - start.getX();
-                xOrigin = start.getX();
-            }
-            else
-                {
-                    width =  start.getX() - end.getX();
-                    xOrigin = end.getX();
-                }
-
-            //---set height and yOrigin---
-            if (end.getY() > start.getY())
-            {
-                height = end.getY() - start.getY();
-                yOrigin = start.getY();
-            }
-            else
-                {
-                    height = start.getY() - end.getY();
-                    yOrigin = start.getY() - height;
-                }
-
-            Shape rect = new Shape(paintCanvas);
-            rect.DrawRect(xOrigin, yOrigin, width, height);
+            command = new DrawCommand(currentState, paintCanvas, pointStart, pointEnd);
+            command.run();
+        }
+        else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.SELECT))
+        {
+            //new select command
+        }
+        else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.MOVE))
+        {
+            //new move command
         }
     }
-
-    //public void mouseDragged (MouseEvent e) {}
-
 }
