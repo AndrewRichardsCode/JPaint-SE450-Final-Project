@@ -1,43 +1,41 @@
 package model;
 
-import controller.Point;
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 
+import java.awt.*;
+
 public class RectangleStrategy implements IDrawShapeStrategy
 {
+    private int width;
+    private int height;
+    private int xOrigin;
+    private int yOrigin;
+
+    public RectangleStrategy (int width, int height, int xOrigin, int yOrigin)
+    {
+        this.width = width;
+        this.height = height;
+        this.xOrigin = xOrigin;
+        this.yOrigin = yOrigin;
+    }
 
     @Override
-    public void drawShape(PaintCanvasBase paintCanvas, Point pointStart, Point pointEnd)
+    public void drawFilledShape(PaintCanvasBase paintCanvas)
     {
-        int width;
-        int height;
-        int xOrigin;
-        int yOrigin;
-
-        //---set width and xOrigin---
-        if(pointEnd.getX() > pointStart.getX())
-        {
-            width = pointEnd.getX() - pointStart.getX();
-            xOrigin = pointStart.getX();
-        }
-        else
-        {
-            width =  pointStart.getX() - pointEnd.getX();
-            xOrigin = pointEnd.getX();
-        }
-
-        //---set height and yOrigin---
-        if (pointEnd.getY() > pointStart.getY())
-        {
-            height = pointEnd.getY() - pointStart.getY();
-            yOrigin = pointStart.getY();
-        }
-        else
-        {
-            height = pointStart.getY() - pointEnd.getY();
-            yOrigin = pointStart.getY() - height;
-        }
         paintCanvas.getGraphics2D().fillRect(xOrigin, yOrigin, width, height);
+    }
+
+    @Override
+    public void drawOutlinedShape(PaintCanvasBase paintCanvas)
+    {
+        paintCanvas.getGraphics2D().setStroke(new BasicStroke(5));
+        paintCanvas.getGraphics2D().drawRect(xOrigin, yOrigin, width, height);
+    }
+
+    @Override
+    public void drawFilledAndOutlinedShape(PaintCanvasBase paintCanvas)
+    {
+
     }
 }

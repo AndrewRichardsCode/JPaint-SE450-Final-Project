@@ -7,8 +7,18 @@ import view.interfaces.PaintCanvasBase;
 public class TriangleStrategy implements IDrawShapeStrategy
 {
     @Override
-    public void drawShape(PaintCanvasBase paintCanvas, Point pointStart, Point pointEnd)
+    public void drawFilledShape(PaintCanvasBase paintCanvas)
     {
+
+    }
+
+    @Override
+    public void drawOutlinedShape(PaintCanvasBase paintCanvas) {
+
+    }
+
+    @Override
+    public void drawFilledAndOutlinedShape(PaintCanvasBase paintCanvas) {
 
     }
 }

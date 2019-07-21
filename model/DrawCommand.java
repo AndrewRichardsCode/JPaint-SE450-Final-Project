@@ -12,20 +12,33 @@ public class DrawCommand implements ICommand
     private PaintCanvasBase paintCanvas;
     private Point pointStart;
     private Point pointEnd;
+    private ShapeList shapeList;
 
-    public DrawCommand (IApplicationState currentState, PaintCanvasBase paintCanvas, Point pointStart, Point pointEnd)
+    public DrawCommand (IApplicationState currentState, ShapeList shapeList, PaintCanvasBase paintCanvas, Point pointStart, Point pointEnd)
     {
         this.currentState = currentState;
         this.paintCanvas = paintCanvas;
         this.pointStart = pointStart;
         this.pointEnd = pointEnd;
+        this.shapeList = shapeList;
     }
 
     @Override
     public void run() //throws IOException
     {
-        ShapeStrategyFactory factory = new ShapeStrategyFactory();
-        Shape shape = new Shape(factory.setStrategy(currentState));
-        shape.drawShapeStrategy.drawShape(paintCanvas, pointStart, pointEnd);
+
+        ShapeColor primaryColor = currentState.getActivePrimaryColor();
+        ShapeColor secondaryColor = currentState.getActiveSecondaryColor();
+        ShapeShadingType shadingType = currentState.getActiveShapeShadingType();
+
+        Shape shape = new Shape(primaryColor, secondaryColor, shadingType, pointEnd, pointStart);
+        ShapeFactory factory = new ShapeFactory(shape);
+
+        IDrawShapeStrategy strategy = factory.setStrategy(currentState);
+        factory.drawShape(strategy, paintCanvas);
+
+        shapeList.shapeArrayList.add(shape);
+
+
     }
 }

@@ -4,6 +4,7 @@ import controller.IJPaintController;
 import controller.JPaintController;
 import controller.MouseHandler;
 import model.DrawCommand;
+import model.ShapeList;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -13,6 +14,7 @@ import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){
@@ -33,9 +35,10 @@ public class Main {
             e.printStackTrace();
         }
 
-
-        MouseHandler mouse = new MouseHandler(appState, paintCanvas);
+        ShapeList shapeList = new ShapeList();
+        MouseHandler mouse = new MouseHandler(appState, paintCanvas, shapeList);
         paintCanvas.addMouseListener(mouse);
+
 
         /*// Filled in rectangle
         Graphics2D graphics2d = paintCanvas.getGraphics2D();

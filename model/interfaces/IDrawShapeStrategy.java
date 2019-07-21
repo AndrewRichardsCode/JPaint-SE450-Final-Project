@@ -5,5 +5,7 @@ import view.interfaces.PaintCanvasBase;
 
 public interface IDrawShapeStrategy
 {
-    void drawShape(PaintCanvasBase paintCanvas, Point startPoint, Point endPoint);
+    void drawFilledShape(PaintCanvasBase paintCanvas);
+    void drawOutlinedShape(PaintCanvasBase paintCanvas);
+    void drawFilledAndOutlinedShape(PaintCanvasBase paintCanvas);
 }

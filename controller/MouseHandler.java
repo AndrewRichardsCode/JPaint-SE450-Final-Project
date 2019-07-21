@@ -13,11 +13,13 @@ public class MouseHandler extends MouseAdapter
     private IApplicationState currentState;
     private PaintCanvasBase paintCanvas;
     private Point pointStart;
+    private ShapeList shapeList;
 
-    public MouseHandler(IApplicationState currentState, PaintCanvasBase paintCanvas)
+    public MouseHandler(IApplicationState currentState, PaintCanvasBase paintCanvas, ShapeList shapeList)
     {
         this.currentState = currentState;
         this.paintCanvas = paintCanvas;
+        this.shapeList = shapeList;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class MouseHandler extends MouseAdapter
 
         if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.DRAW))
         {
-            command = new DrawCommand(currentState, paintCanvas, pointStart, pointEnd);
+            command = new DrawCommand(currentState, shapeList, paintCanvas, pointStart, pointEnd);
             command.run();
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.SELECT))
