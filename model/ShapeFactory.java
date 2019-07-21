@@ -4,6 +4,9 @@ import model.interfaces.IApplicationState;
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 
+import java.awt.*;
+import java.util.EnumMap;
+
 public class ShapeFactory
 {
     private Shape shape;
@@ -22,14 +25,16 @@ public class ShapeFactory
         int height = shape.getHeight();
         int xOrigin = shape.getXOrigin();
         int yOrigin = shape.getYOrigin();
+        Color shapePrimaryColor = shape.shapePrimaryColor;
+        Color shapeSecondaryColor = shape.shapeSecondaryColor;
 
         switch(shapeType)
         {
-            case RECTANGLE:     strategy = new RectangleStrategy(width, height, xOrigin, yOrigin);
+            case RECTANGLE:     strategy = new RectangleStrategy(width, height, xOrigin, yOrigin, shapePrimaryColor, shapeSecondaryColor);
                                 break;
             case TRIANGLE:      strategy = new TriangleStrategy();
                                 break;
-            case ELLIPSE:       strategy = new EllipseStrategy(width, height, xOrigin, yOrigin);
+            case ELLIPSE:       strategy = new EllipseStrategy(width, height, xOrigin, yOrigin, shapePrimaryColor, shapeSecondaryColor);
                                 break;
             default:            throw new Error();
         }
@@ -49,9 +54,4 @@ public class ShapeFactory
             default:                    throw new Error();
         }
     }
-
-
-
-    //EnumMap<Color, ShapeColor> map = new EnumMap<Color, ShapeColor>();
-    //paintCanvas.getGraphics2D().setColor(color);
 }

@@ -4,6 +4,8 @@ import controller.Point;
 import model.interfaces.*;
 import view.interfaces.PaintCanvasBase;
 
+import java.awt.*;
+
 //import java.io.IOException;
 
 public class DrawCommand implements ICommand
@@ -27,18 +29,18 @@ public class DrawCommand implements ICommand
     public void run() //throws IOException
     {
 
-        ShapeColor primaryColor = currentState.getActivePrimaryColor();
-        ShapeColor secondaryColor = currentState.getActiveSecondaryColor();
+        ShapeColor selectedPrimaryColor = currentState.getActivePrimaryColor();
+        ShapeColor selectedSecondaryColor = currentState.getActiveSecondaryColor();
         ShapeShadingType shadingType = currentState.getActiveShapeShadingType();
 
-        Shape shape = new Shape(primaryColor, secondaryColor, shadingType, pointEnd, pointStart);
+        Shape shape = new Shape(selectedPrimaryColor, selectedSecondaryColor, shadingType, pointEnd, pointStart);
+        shape.setShapeColor();
         ShapeFactory factory = new ShapeFactory(shape);
 
         IDrawShapeStrategy strategy = factory.setStrategy(currentState);
+
         factory.drawShape(strategy, paintCanvas);
 
         shapeList.shapeArrayList.add(shape);
-
-
     }
 }

@@ -2,23 +2,28 @@ package model;
 
 import controller.Point;
 
+import java.awt.*;
+import java.util.EnumMap;
+
 public class Shape
 {
-    private ShapeColor primaryColor;
-    private ShapeColor secondaryColor;
+    private ShapeColor selectedPrimaryColor;
+    private ShapeColor selectedSecondaryColor;
     private ShapeShadingType shadingType;
     private Point pointEnd;
     private Point pointStart;
+    Color shapePrimaryColor;
+    Color shapeSecondaryColor;
 
     private int width;
     private int height;
     private int xOrigin;
     private int yOrigin;
 
-    Shape(ShapeColor primaryColor, ShapeColor secondaryColor, ShapeShadingType shadingType, Point pointEnd, Point pointStart)
+    Shape(ShapeColor selectedPrimaryColor, ShapeColor selectedSecondaryColor, ShapeShadingType shadingType, Point pointEnd, Point pointStart)
     {
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
+        this.selectedPrimaryColor = selectedPrimaryColor;
+        this.selectedSecondaryColor = selectedSecondaryColor;
         this.shadingType = shadingType;
         this.pointEnd = pointEnd;
         this.pointStart = pointStart;
@@ -72,13 +77,23 @@ public class Shape
         return shadingType;
     }
 
-    ShapeColor getPrimaryColor()
+    void setShapeColor()
     {
-        return primaryColor;
-    }
-
-    ShapeColor getSecondaryColor()
-    {
-        return secondaryColor;
+        EnumMap<ShapeColor, Color> colorMap = new EnumMap <>(ShapeColor.class);
+        colorMap.put(ShapeColor.BLACK, Color.BLACK);
+        colorMap.put(ShapeColor.BLUE, Color.BLUE);
+        colorMap.put(ShapeColor.CYAN, Color.CYAN);
+        colorMap.put(ShapeColor.DARK_GRAY, Color.DARK_GRAY);
+        colorMap.put(ShapeColor.GRAY, Color.GRAY);
+        colorMap.put(ShapeColor.GREEN, Color.GREEN);
+        colorMap.put(ShapeColor.LIGHT_GRAY, Color.LIGHT_GRAY);
+        colorMap.put(ShapeColor.MAGENTA, Color.MAGENTA);
+        colorMap.put(ShapeColor.ORANGE, Color.ORANGE);
+        colorMap.put(ShapeColor.PINK, Color.PINK);
+        colorMap.put(ShapeColor.RED, Color.RED);
+        colorMap.put(ShapeColor.WHITE, Color.WHITE);
+        colorMap.put(ShapeColor.YELLOW, Color.YELLOW);
+        shapePrimaryColor = colorMap.get(selectedPrimaryColor);
+        shapeSecondaryColor = colorMap.get(selectedSecondaryColor);
     }
 }

@@ -11,31 +11,44 @@ public class RectangleStrategy implements IDrawShapeStrategy
     private int height;
     private int xOrigin;
     private int yOrigin;
+    private Color shapePrimaryColor;
+    private Color shapeSecondaryColor;
 
-    public RectangleStrategy (int width, int height, int xOrigin, int yOrigin)
+    public RectangleStrategy (int width, int height, int xOrigin, int yOrigin, Color shapePrimaryColor, Color shapeSecondaryColor)
     {
         this.width = width;
         this.height = height;
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
+        this.shapePrimaryColor = shapePrimaryColor;
+        this.shapeSecondaryColor = shapeSecondaryColor;
     }
 
     @Override
     public void drawFilledShape(PaintCanvasBase paintCanvas)
     {
-        paintCanvas.getGraphics2D().fillRect(xOrigin, yOrigin, width, height);
+        Graphics2D graphics2d = paintCanvas.getGraphics2D();
+        graphics2d.setColor(shapePrimaryColor);
+        graphics2d.fillRect(xOrigin, yOrigin, width, height);
     }
 
     @Override
     public void drawOutlinedShape(PaintCanvasBase paintCanvas)
     {
-        paintCanvas.getGraphics2D().setStroke(new BasicStroke(5));
-        paintCanvas.getGraphics2D().drawRect(xOrigin, yOrigin, width, height);
+        Graphics2D graphics2d = paintCanvas.getGraphics2D();
+        graphics2d.setStroke(new BasicStroke(5));
+        graphics2d.setColor(shapePrimaryColor);
+        graphics2d.drawRect(xOrigin, yOrigin, width, height);
     }
 
     @Override
     public void drawFilledAndOutlinedShape(PaintCanvasBase paintCanvas)
     {
-
+        Graphics2D graphics2d = paintCanvas.getGraphics2D();
+        graphics2d.setColor(shapePrimaryColor);
+        graphics2d.fillRect(xOrigin, yOrigin, width, height);
+        graphics2d.setStroke(new BasicStroke(5));
+        graphics2d.setColor(shapeSecondaryColor);
+        graphics2d.drawRect(xOrigin, yOrigin, width, height);
     }
 }
