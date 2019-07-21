@@ -1,12 +1,9 @@
 package model;
 
 import controller.Point;
-import model.interfaces.IApplicationState;
-import model.interfaces.IDrawShapeStrategy;
 
 public class Shape
 {
-
     private ShapeColor primaryColor;
     private ShapeColor secondaryColor;
     private ShapeShadingType shadingType;
@@ -36,6 +33,7 @@ public class Shape
         }
         return width;
     }
+
     int getHeight()
     {
         if (pointEnd.getY() > pointStart.getY()) {
@@ -72,5 +70,15 @@ public class Shape
     ShapeShadingType getShadingType()
     {
         return shadingType;
+    }
+
+    ShapeColor getPrimaryColor()
+    {
+        return primaryColor;
+    }
+
+    ShapeColor getSecondaryColor()
+    {
+        return secondaryColor;
     }
 }

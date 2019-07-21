@@ -6,8 +6,7 @@ import view.interfaces.PaintCanvasBase;
 
 public class ShapeFactory
 {
-    Shape shape;
-
+    private Shape shape;
 
     public ShapeFactory(Shape shape)
     {
@@ -26,17 +25,13 @@ public class ShapeFactory
 
         switch(shapeType)
         {
-            case RECTANGLE:
-                strategy = new RectangleStrategy(width, height, xOrigin, yOrigin);
-                break;
-            case TRIANGLE:
-                strategy = new TriangleStrategy();
-                break;
-            case ELLIPSE:
-                strategy = new EllipseStrategy(width, height, xOrigin, yOrigin);
-                break;
-            default:
-                throw new Error();
+            case RECTANGLE:     strategy = new RectangleStrategy(width, height, xOrigin, yOrigin);
+                                break;
+            case TRIANGLE:      strategy = new TriangleStrategy();
+                                break;
+            case ELLIPSE:       strategy = new EllipseStrategy(width, height, xOrigin, yOrigin);
+                                break;
+            default:            throw new Error();
         }
         return strategy;
     }
@@ -45,13 +40,13 @@ public class ShapeFactory
     {
         switch(shape.getShadingType())
         {
-            case FILLED_IN: strategy.drawFilledShape(paintCanvas);
-                            break;
-            case OUTLINE:   strategy.drawOutlinedShape(paintCanvas);
-                            break;
-
+            case FILLED_IN:             strategy.drawFilledShape(paintCanvas);
+                                        break;
+            case OUTLINE:               strategy.drawOutlinedShape(paintCanvas);
+                                        break;
             case OUTLINE_AND_FILLED_IN: strategy.drawFilledAndOutlinedShape(paintCanvas);
                                         break;
+            default:                    throw new Error();
         }
     }
 
