@@ -45,12 +45,17 @@ public class SelectCommand implements ICommand
     @Override
     public void run()
     {
+        int shapeX;
+        int shapeY;
+        int shapeWidth;
+        int shapeHeight;
+
         for (Shape shape: shapeList.createdShapeList)
         {
-            int shapeX = shape.pointStart.getX();
-            int shapeY = shape.pointStart.getY();
-            int shapeWidth = shape.getWidth();
-            int shapeHeight = shape.getHeight();
+            shapeX = shape.pointStart.getX();
+            shapeY = shape.pointStart.getY();
+            shapeWidth = shape.getWidth();
+            shapeHeight = shape.getHeight();
 
             if( (selectionX < shapeX + shapeWidth)      &&
                 (selectionX + selectionWidth > shapeX)  &&
