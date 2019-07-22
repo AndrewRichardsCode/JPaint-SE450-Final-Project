@@ -14,7 +14,7 @@ public class RectangleStrategy implements IDrawShapeStrategy
     private Color shapePrimaryColor;
     private Color shapeSecondaryColor;
 
-    public RectangleStrategy (int width, int height, int xOrigin, int yOrigin, Color shapePrimaryColor, Color shapeSecondaryColor)
+    RectangleStrategy (int width, int height, int xOrigin, int yOrigin, Color shapePrimaryColor, Color shapeSecondaryColor)
     {
         this.width = width;
         this.height = height;

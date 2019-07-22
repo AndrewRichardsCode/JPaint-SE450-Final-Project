@@ -1,25 +1,21 @@
 package model;
 
-import model.interfaces.IApplicationState;
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
-
 import java.awt.*;
 
-public class ShapeFactory
+class ShapeFactory
 {
     private Shape shape;
 
-    public ShapeFactory(Shape shape)
+    ShapeFactory(Shape shape)
     {
         this.shape = shape;
     }
 
-    public IDrawShapeStrategy setStrategy(IApplicationState currentState)
+    IDrawShapeStrategy setStrategy()
     {
         IDrawShapeStrategy strategy;
-        ShapeType shapeType = currentState.getActiveShapeType();
-
         int width = shape.getWidth();
         int height = shape.getHeight();
         int xOrigin = shape.getXOrigin();
@@ -29,7 +25,7 @@ public class ShapeFactory
         Color shapePrimaryColor = shape.shapePrimaryColor;
         Color shapeSecondaryColor = shape.shapeSecondaryColor;
 
-        switch(shapeType)
+        switch(shape.getShapeType())
         {
             case RECTANGLE:     strategy = new RectangleStrategy(width, height, xOrigin, yOrigin, shapePrimaryColor, shapeSecondaryColor);
                                 break;
@@ -42,7 +38,7 @@ public class ShapeFactory
         return strategy;
     }
 
-    public void drawShape(IDrawShapeStrategy strategy, PaintCanvasBase paintCanvas)
+    void drawShape(IDrawShapeStrategy strategy, PaintCanvasBase paintCanvas)
     {
         switch(shape.getShadingType())
         {

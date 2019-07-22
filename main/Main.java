@@ -26,9 +26,6 @@ public class Main {
         controller.setup();
 
         // For example purposes only; remove all lines below from your final project.
-
-
-
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {

@@ -2,7 +2,6 @@ package model;
 
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
-
 import java.awt.*;
 
 public class TriangleStrategy implements IDrawShapeStrategy
@@ -12,7 +11,7 @@ public class TriangleStrategy implements IDrawShapeStrategy
     private int[] xValues;
     private int[] yValues;
 
-    public TriangleStrategy (int[] xValues, int[] yValues, Color shapePrimaryColor, Color shapeSecondaryColor)
+    TriangleStrategy (int[] xValues, int[] yValues, Color shapePrimaryColor, Color shapeSecondaryColor)
     {
         this.shapePrimaryColor = shapePrimaryColor;
         this.shapeSecondaryColor = shapeSecondaryColor;

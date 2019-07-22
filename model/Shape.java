@@ -1,17 +1,15 @@
 package model;
 
 import controller.Point;
-
+import model.interfaces.IApplicationState;
 import java.awt.*;
-
 import java.util.EnumMap;
 
-public class Shape
+class Shape
 {
-    private ShapeColor selectedPrimaryColor;
-    private ShapeColor selectedSecondaryColor;
     private ShapeShadingType shadingType;
-    private Point pointEnd;
+    private ShapeType shapeType;
+    Point pointEnd;
     Point pointStart;
     Color shapePrimaryColor;
     Color shapeSecondaryColor;
@@ -21,13 +19,31 @@ public class Shape
     private int[] xValues = new int[3];
     private int[] yValues = new int[3];
 
-    Shape(ShapeColor selectedPrimaryColor, ShapeColor selectedSecondaryColor, ShapeShadingType shadingType, Point pointEnd, Point pointStart)
+    Shape(IApplicationState currentState, Point pointEnd, Point pointStart)
     {
-        this.selectedPrimaryColor = selectedPrimaryColor;
-        this.selectedSecondaryColor = selectedSecondaryColor;
-        this.shadingType = shadingType;
+        ShapeColor selectedPrimaryColor = currentState.getActivePrimaryColor();
+        ShapeColor selectedSecondaryColor = currentState.getActiveSecondaryColor();
+        shadingType = currentState.getActiveShapeShadingType();
+        shapeType = currentState.getActiveShapeType();
         this.pointEnd = pointEnd;
         this.pointStart = pointStart;
+
+        EnumMap<ShapeColor, Color> colorMap = new EnumMap <>(ShapeColor.class);
+        colorMap.put(ShapeColor.BLACK, Color.BLACK);
+        colorMap.put(ShapeColor.BLUE, Color.BLUE);
+        colorMap.put(ShapeColor.CYAN, Color.CYAN);
+        colorMap.put(ShapeColor.DARK_GRAY, Color.DARK_GRAY);
+        colorMap.put(ShapeColor.GRAY, Color.GRAY);
+        colorMap.put(ShapeColor.GREEN, Color.GREEN);
+        colorMap.put(ShapeColor.LIGHT_GRAY, Color.LIGHT_GRAY);
+        colorMap.put(ShapeColor.MAGENTA, Color.MAGENTA);
+        colorMap.put(ShapeColor.ORANGE, Color.ORANGE);
+        colorMap.put(ShapeColor.PINK, Color.PINK);
+        colorMap.put(ShapeColor.RED, Color.RED);
+        colorMap.put(ShapeColor.WHITE, Color.WHITE);
+        colorMap.put(ShapeColor.YELLOW, Color.YELLOW);
+        shapePrimaryColor = colorMap.get(selectedPrimaryColor);
+        shapeSecondaryColor = colorMap.get(selectedSecondaryColor);
     }
 
     int getWidth ()
@@ -73,25 +89,7 @@ public class Shape
         return shadingType;
     }
 
-    void setShapeColor() //move to constructor
-    {
-        EnumMap<ShapeColor, Color> colorMap = new EnumMap <>(ShapeColor.class);
-        colorMap.put(ShapeColor.BLACK, Color.BLACK);
-        colorMap.put(ShapeColor.BLUE, Color.BLUE);
-        colorMap.put(ShapeColor.CYAN, Color.CYAN);
-        colorMap.put(ShapeColor.DARK_GRAY, Color.DARK_GRAY);
-        colorMap.put(ShapeColor.GRAY, Color.GRAY);
-        colorMap.put(ShapeColor.GREEN, Color.GREEN);
-        colorMap.put(ShapeColor.LIGHT_GRAY, Color.LIGHT_GRAY);
-        colorMap.put(ShapeColor.MAGENTA, Color.MAGENTA);
-        colorMap.put(ShapeColor.ORANGE, Color.ORANGE);
-        colorMap.put(ShapeColor.PINK, Color.PINK);
-        colorMap.put(ShapeColor.RED, Color.RED);
-        colorMap.put(ShapeColor.WHITE, Color.WHITE);
-        colorMap.put(ShapeColor.YELLOW, Color.YELLOW);
-        shapePrimaryColor = colorMap.get(selectedPrimaryColor);
-        shapeSecondaryColor = colorMap.get(selectedSecondaryColor);
-    }
+    ShapeType getShapeType() {return shapeType;}
 
     int [] getTriangleXValues ()
     {

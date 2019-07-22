@@ -2,7 +2,6 @@ package model;
 
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
-
 import java.awt.*;
 
 public class EllipseStrategy implements IDrawShapeStrategy
@@ -14,7 +13,7 @@ public class EllipseStrategy implements IDrawShapeStrategy
     private Color shapePrimaryColor;
     private Color shapeSecondaryColor;
 
-    public EllipseStrategy(int width, int height, int xOrigin, int yOrigin, Color shapePrimaryColor, Color shapeSecondaryColor)
+    EllipseStrategy(int width, int height, int xOrigin, int yOrigin, Color shapePrimaryColor, Color shapeSecondaryColor)
     {
         this.width = width;
         this.height = height;
