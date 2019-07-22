@@ -1,6 +1,5 @@
 package model;
 
-import controller.Point;
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 

@@ -5,7 +5,6 @@ import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
-import java.util.EnumMap;
 
 public class ShapeFactory
 {
@@ -25,6 +24,8 @@ public class ShapeFactory
         int height = shape.getHeight();
         int xOrigin = shape.getXOrigin();
         int yOrigin = shape.getYOrigin();
+        int[] xValues = shape.getTriangleXValues();
+        int[] yValues = shape.getTriangleYValues();
         Color shapePrimaryColor = shape.shapePrimaryColor;
         Color shapeSecondaryColor = shape.shapeSecondaryColor;
 
@@ -32,7 +33,7 @@ public class ShapeFactory
         {
             case RECTANGLE:     strategy = new RectangleStrategy(width, height, xOrigin, yOrigin, shapePrimaryColor, shapeSecondaryColor);
                                 break;
-            case TRIANGLE:      strategy = new TriangleStrategy();
+            case TRIANGLE:      strategy = new TriangleStrategy(xValues, yValues, shapePrimaryColor, shapeSecondaryColor);
                                 break;
             case ELLIPSE:       strategy = new EllipseStrategy(width, height, xOrigin, yOrigin, shapePrimaryColor, shapeSecondaryColor);
                                 break;

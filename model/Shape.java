@@ -3,6 +3,7 @@ package model;
 import controller.Point;
 
 import java.awt.*;
+
 import java.util.EnumMap;
 
 public class Shape
@@ -17,8 +18,8 @@ public class Shape
 
     private int width;
     private int height;
-    private int xOrigin;
-    private int yOrigin;
+    private int[] xValues = new int[3];
+    private int[] yValues = new int[3];
 
     Shape(ShapeColor selectedPrimaryColor, ShapeColor selectedSecondaryColor, ShapeShadingType shadingType, Point pointEnd, Point pointStart)
     {
@@ -31,44 +32,39 @@ public class Shape
 
     int getWidth ()
     {
-        if (pointEnd.getX() > pointStart.getX()) {
-            width = pointEnd.getX() - pointStart.getX();
-        } else {
-            width = pointStart.getX() - pointEnd.getX();
-        }
+        if (pointEnd.getX() > pointStart.getX())
+            { width = pointEnd.getX() - pointStart.getX(); }
+        else
+            { width = pointStart.getX() - pointEnd.getX(); }
         return width;
     }
 
     int getHeight()
     {
-        if (pointEnd.getY() > pointStart.getY()) {
-            height = pointEnd.getY() - pointStart.getY();
-        } else {
-            height = pointStart.getY() - pointEnd.getY();
-        }
+        if (pointEnd.getY() > pointStart.getY())
+            { height = pointEnd.getY() - pointStart.getY(); }
+        else
+            { height = pointStart.getY() - pointEnd.getY(); }
         return height;
     }
 
     int getXOrigin()
     {
+        int xOrigin;
         if (pointEnd.getX() > pointStart.getX())
-        {
-            xOrigin = pointStart.getX();
-        }
-        else {
-            xOrigin = pointEnd.getX();
-        }
+            { xOrigin = pointStart.getX(); }
+        else
+            { xOrigin = pointEnd.getX(); }
         return xOrigin;
     }
 
-    int getYOrigin() {
+    int getYOrigin()
+    {
+        int yOrigin;
         if (pointEnd.getY() > pointStart.getY())
-        {
-            yOrigin = pointStart.getY();
-        }
-        else {
-            yOrigin = pointStart.getY() - height;
-        }
+            { yOrigin = pointStart.getY(); }
+        else
+            { yOrigin = pointStart.getY() - height; }
         return yOrigin;
     }
 
@@ -95,5 +91,27 @@ public class Shape
         colorMap.put(ShapeColor.YELLOW, Color.YELLOW);
         shapePrimaryColor = colorMap.get(selectedPrimaryColor);
         shapeSecondaryColor = colorMap.get(selectedSecondaryColor);
+    }
+
+    int [] getTriangleXValues ()
+    {
+        xValues[0] = pointStart.getX();
+        xValues[1] = pointEnd.getX();
+        if (pointEnd.getX() > pointStart.getX())
+            { xValues[2] = pointStart.getX() + width; }
+        else
+            { xValues[2] = pointEnd.getX(); }
+        return xValues;
+    }
+
+    int [] getTriangleYValues ()
+    {
+        yValues[0] = pointStart.getY();
+        yValues[1] = pointEnd.getY();
+        if (pointEnd.getY() > pointStart.getY())
+            { yValues[2] = pointEnd.getY() - height; }
+        else
+            { yValues[2] = pointEnd.getY() + height; }
+        return yValues;
     }
 }
