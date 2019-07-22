@@ -12,7 +12,7 @@ public class Shape
     private ShapeColor selectedSecondaryColor;
     private ShapeShadingType shadingType;
     private Point pointEnd;
-    private Point pointStart;
+    Point pointStart;
     Color shapePrimaryColor;
     Color shapeSecondaryColor;
 
@@ -73,7 +73,7 @@ public class Shape
         return shadingType;
     }
 
-    void setShapeColor()
+    void setShapeColor() //move to constructor
     {
         EnumMap<ShapeColor, Color> colorMap = new EnumMap <>(ShapeColor.class);
         colorMap.put(ShapeColor.BLACK, Color.BLACK);

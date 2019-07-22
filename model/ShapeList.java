@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class ShapeList
 {
-    public ShapeList(){}
+    //public ShapeList(){}
 
-    ArrayList <Shape> shapeArrayList = new ArrayList<>();
+    ArrayList <Shape> createdShapeList = new ArrayList<>();
+    ArrayList <Shape> selectedShapeList = new ArrayList<>();
 }

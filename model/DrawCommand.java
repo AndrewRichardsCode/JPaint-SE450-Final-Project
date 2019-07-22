@@ -29,18 +29,18 @@ public class DrawCommand implements ICommand
     public void run() //throws IOException
     {
 
-        ShapeColor selectedPrimaryColor = currentState.getActivePrimaryColor();
-        ShapeColor selectedSecondaryColor = currentState.getActiveSecondaryColor();
-        ShapeShadingType shadingType = currentState.getActiveShapeShadingType();
+        ShapeColor selectedPrimaryColor = currentState.getActivePrimaryColor(); //move to constructor
+        ShapeColor selectedSecondaryColor = currentState.getActiveSecondaryColor(); //move to constructor
+        ShapeShadingType shadingType = currentState.getActiveShapeShadingType(); //move to constructor
 
         Shape shape = new Shape(selectedPrimaryColor, selectedSecondaryColor, shadingType, pointEnd, pointStart);
-        shape.setShapeColor();
+        shape.setShapeColor(); //move to shape constructor
         ShapeFactory factory = new ShapeFactory(shape);
 
         IDrawShapeStrategy strategy = factory.setStrategy(currentState);
 
         factory.drawShape(strategy, paintCanvas);
 
-        shapeList.shapeArrayList.add(shape);
+        shapeList.createdShapeList.add(shape);
     }
 }

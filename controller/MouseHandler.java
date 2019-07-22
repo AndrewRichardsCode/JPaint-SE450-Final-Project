@@ -5,8 +5,6 @@ import model.*;
 import model.interfaces.*;
 import view.interfaces.PaintCanvasBase;
 
-
-
 public class MouseHandler extends MouseAdapter
 {
 
@@ -41,11 +39,14 @@ public class MouseHandler extends MouseAdapter
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.SELECT))
         {
-            //new select command
+            command = new SelectCommand(pointStart, pointEnd, shapeList);
+            command.run();
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.MOVE))
         {
-            //new move command
+            command = new MoveCommand(pointStart, pointEnd);
+            command.run();
         }
+        //command.run();
     }
 }
