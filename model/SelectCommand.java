@@ -3,6 +3,8 @@ package model;
 import controller.Point;
 import model.interfaces.ICommand;
 
+import java.util.ArrayList;
+
 public class SelectCommand implements ICommand
 {
     private ShapeList shapeList;
@@ -43,13 +45,14 @@ public class SelectCommand implements ICommand
     }
 
     @Override
-    public void run()
+    public void run() //bug with double selecting. recreate selectedShapeList each time in here?
     {
         int shapeX;
         int shapeY;
         int shapeWidth;
         int shapeHeight;
-
+        shapeList.selectedShapeList = new ArrayList<>();
+        
         for (Shape shape: shapeList.createdShapeList)
         {
             shapeX = shape.pointStart.getX();
