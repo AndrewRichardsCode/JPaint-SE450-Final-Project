@@ -3,6 +3,7 @@ package model;
 import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ShapeList
@@ -61,10 +62,12 @@ public class ShapeList
     {
         for (Shape shape: selectedShapeList)
         {
-            ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = new NullShape();
-
+            createdShapeList.remove(shape);
+            Graphics2D g = paintCanvas.getGraphics2D();
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         }
+        selectedShapeList = new ArrayList<>();
 
     }
 }

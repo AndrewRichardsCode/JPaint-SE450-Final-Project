@@ -24,28 +24,30 @@ public class MoveCommand implements ICommand
     @Override
     public void run()
     {
-        int xStartValue;
-        int yStartValue;
-        int xEndValue;
-        int yEndValue;
-        int deltaX = pointEnd.getX() - pointStart.getX();
-        int deltaY = pointEnd.getY() - pointStart.getY();
-        Graphics2D g = paintCanvas.getGraphics2D();
-
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0,paintCanvas.getWidth(), paintCanvas.getHeight());
-
-        for (Shape shape: shapeList.selectedShapeList)
+        if(shapeList.selectedShapeList != null)
         {
-            xStartValue = shape.pointStart.getX();
-            yStartValue = shape.pointStart.getY();
-            xEndValue = shape.pointEnd.getX();
-            yEndValue = shape.pointEnd.getY();
+            int xStartValue;
+            int yStartValue;
+            int xEndValue;
+            int yEndValue;
+            int deltaX = pointEnd.getX() - pointStart.getX();
+            int deltaY = pointEnd.getY() - pointStart.getY();
+            Graphics2D g = paintCanvas.getGraphics2D();
 
-            shape.pointStart = new Point (xStartValue + deltaX, yStartValue + deltaY);
-            shape.pointEnd = new Point (xEndValue + deltaX, yEndValue + deltaY);
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
+            for (Shape shape : shapeList.selectedShapeList) {
+                xStartValue = shape.pointStart.getX();
+                yStartValue = shape.pointStart.getY();
+                xEndValue = shape.pointEnd.getX();
+                yEndValue = shape.pointEnd.getY();
+
+                shape.pointStart = new Point(xStartValue + deltaX, yStartValue + deltaY);
+                shape.pointEnd = new Point(xEndValue + deltaX, yEndValue + deltaY);
+            }
+            shapeList.drawMasterList();
+            shapeList.drawSelectedList();
         }
-        shapeList.drawMasterList();
-        shapeList.drawSelectedList();
     }
 }

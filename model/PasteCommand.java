@@ -14,6 +14,9 @@ public class PasteCommand implements ICommand
     @Override
     public void run()
     {
-        shapeList.drawCopiedList();
+        if(shapeList.copyShapeList != null)
+        {
+            shapeList.drawCopiedList();
+        }
     }
 }

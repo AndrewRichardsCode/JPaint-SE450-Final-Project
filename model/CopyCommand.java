@@ -17,16 +17,18 @@ public class CopyCommand implements ICommand
     @Override
     public void run()
     {
-        shapeList.copyShapeList = new ArrayList<>();
-
-        for (Shape shape: shapeList.selectedShapeList)
+        if(shapeList.selectedShapeList != null)
         {
-            Shape copiedShape = new Shape(shape.currentState, new Point(shape.width, shape.height), new Point(0,0));
-            copiedShape.shapeType = shape.shapeType;
-            copiedShape.shadingType = shape.shadingType;
-            copiedShape.shapePrimaryColor = shape.shapePrimaryColor;
-            copiedShape.shapeSecondaryColor = shape.shapeSecondaryColor;
-            shapeList.copyShapeList.add(copiedShape);
+            shapeList.copyShapeList = new ArrayList<>();
+
+            for (Shape shape : shapeList.selectedShapeList) {
+                Shape copiedShape = new Shape(shape.currentState, new Point(shape.width, shape.height), new Point(0, 0));
+                copiedShape.shapeType = shape.shapeType;
+                copiedShape.shadingType = shape.shadingType;
+                copiedShape.shapePrimaryColor = shape.shapePrimaryColor;
+                copiedShape.shapeSecondaryColor = shape.shapeSecondaryColor;
+                shapeList.copyShapeList.add(copiedShape);
+            }
         }
     }
 }

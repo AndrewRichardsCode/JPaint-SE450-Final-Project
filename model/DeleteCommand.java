@@ -14,7 +14,10 @@ public class DeleteCommand implements ICommand
     @Override
     public void run()
     {
-        shapeList.deleteSelectedList();
-        shapeList.drawMasterList();
+        if(shapeList.selectedShapeList != null)
+        {
+            shapeList.deleteSelectedList();
+            shapeList.drawMasterList();
+        }
     }
 }
