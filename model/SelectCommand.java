@@ -2,9 +2,6 @@ package model;
 
 import controller.Point;
 import model.interfaces.ICommand;
-import view.interfaces.PaintCanvasBase;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class SelectCommand implements ICommand
@@ -14,12 +11,10 @@ public class SelectCommand implements ICommand
     private int selectionHeight;
     private int selectionX;
     private int selectionY;
-    private PaintCanvasBase paintCanvas;
 
-    public SelectCommand (Point pointStart, Point pointEnd, ShapeList shapeList, PaintCanvasBase paintCanvas)
+    public SelectCommand (Point pointStart, Point pointEnd, ShapeList shapeList)
     {
         this.shapeList = shapeList;
-        this.paintCanvas = paintCanvas;
         int pointStartX = pointStart.getX();
         int pointEndX = pointEnd.getX();
         int pointStartY = pointStart.getY();
@@ -56,9 +51,6 @@ public class SelectCommand implements ICommand
         int shapeWidth;
         int shapeHeight;
         shapeList.selectedShapeList = new ArrayList<>();
-        Graphics2D g = paintCanvas.getGraphics2D();
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0,paintCanvas.getWidth(), paintCanvas.getHeight());
 
         for (Shape shape: shapeList.createdShapeList)
         {

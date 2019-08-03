@@ -39,12 +39,12 @@ public class MouseHandler extends MouseAdapter
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.SELECT))
         {
-            command = new SelectCommand(pointStart, pointEnd, shapeList, paintCanvas);
+            command = new SelectCommand(pointStart, pointEnd, shapeList);
             command.run();
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.MOVE))
         {
-            command = new MoveCommand(pointStart, pointEnd, paintCanvas, shapeList);
+            command = new MoveCommand(pointStart, pointEnd, shapeList);
             command.run();
         }
         //command.run();

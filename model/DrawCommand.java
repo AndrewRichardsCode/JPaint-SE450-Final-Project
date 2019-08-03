@@ -25,9 +25,10 @@ public class DrawCommand implements ICommand
     public void run()
     {
         Shape shape = new Shape(currentState, pointEnd, pointStart);
-        ShapeFactory factory = new ShapeFactory(shape);
-        IDrawShapeStrategy strategy = factory.setStrategy();
-        factory.drawShape(strategy, paintCanvas);
+        //ShapeFactory factory = new ShapeFactory(shape);
+        //IDrawShapeStrategy strategy = factory.setStrategy();
+        //factory.drawShape(strategy, paintCanvas);
         shapeList.createdShapeList.add(shape);
+        shapeList.drawMasterList();
     }
 }

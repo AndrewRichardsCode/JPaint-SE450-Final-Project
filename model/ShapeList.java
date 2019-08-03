@@ -20,8 +20,12 @@ public class ShapeList
 
     void drawMasterList()
     {
+        Graphics2D g = paintCanvas.getGraphics2D();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         for (Shape shape: createdShapeList)
         {
+
             ShapeFactory factory = new ShapeFactory(shape);
             IDrawShapeStrategy strategy = factory.setStrategy();
             factory.drawShape(strategy, paintCanvas);
@@ -63,11 +67,7 @@ public class ShapeList
         for (Shape shape: selectedShapeList)
         {
             createdShapeList.remove(shape);
-            Graphics2D g = paintCanvas.getGraphics2D();
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         }
         selectedShapeList = new ArrayList<>();
-
     }
 }
