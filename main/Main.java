@@ -22,8 +22,12 @@ public class Main {
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
-        IJPaintController controller = new JPaintController(uiModule, appState);
+        ShapeList shapeList = new ShapeList(paintCanvas);
+        IJPaintController controller = new JPaintController(uiModule, appState, shapeList);
+        MouseHandler mouse = new MouseHandler(appState, paintCanvas, shapeList);
+
         controller.setup();
+        paintCanvas.addMouseListener(mouse);
 
         // For example purposes only; remove all lines below from your final project.
         try {
@@ -32,9 +36,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        ShapeList shapeList = new ShapeList(paintCanvas);
-        MouseHandler mouse = new MouseHandler(appState, paintCanvas, shapeList);
-        paintCanvas.addMouseListener(mouse);
+
+
+
 
 
         /*// Filled in rectangle

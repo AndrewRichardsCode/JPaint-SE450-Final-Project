@@ -2,7 +2,6 @@ package model;
 
 import controller.Point;
 import model.interfaces.ICommand;
-import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 
@@ -46,7 +45,7 @@ public class MoveCommand implements ICommand
             shape.pointStart = new Point (xStartValue + deltaX, yStartValue + deltaY);
             shape.pointEnd = new Point (xEndValue + deltaX, yEndValue + deltaY);
         }
-        shapeList.redrawMasterList();
-        shapeList.redrawSelectedList();
+        shapeList.drawMasterList();
+        shapeList.drawSelectedList();
     }
 }

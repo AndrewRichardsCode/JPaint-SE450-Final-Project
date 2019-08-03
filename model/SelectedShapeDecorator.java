@@ -5,7 +5,7 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class SelectedShape implements IDrawShapeStrategy {
+public class SelectedShapeDecorator implements IDrawShapeStrategy {
     private IDrawShapeStrategy strategy;
 
     private int width;
@@ -15,8 +15,10 @@ public class SelectedShape implements IDrawShapeStrategy {
     private int[] xValues;
     private int[] yValues;
     private ShapeType type;
+    private Stroke stroke = new BasicStroke(8, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
 
-    SelectedShape(IDrawShapeStrategy strategy, int XOrigin, int YOrigin, int height, int width, int[] xValues, int[] yValues, ShapeType type) {
+
+    SelectedShapeDecorator(IDrawShapeStrategy strategy, int XOrigin, int YOrigin, int height, int width, int[] xValues, int[] yValues, ShapeType type) {
         this.strategy = strategy;
 
         this.width = width;
@@ -32,7 +34,6 @@ public class SelectedShape implements IDrawShapeStrategy {
     public void drawFilledShape(PaintCanvasBase paintCanvas)
     {
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        Stroke stroke = new BasicStroke(8, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.BLACK);
 
@@ -54,7 +55,6 @@ public class SelectedShape implements IDrawShapeStrategy {
     public void drawOutlinedShape(PaintCanvasBase paintCanvas)
     {
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        Stroke stroke = new BasicStroke(8, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.BLACK);
         switch (type)
@@ -75,7 +75,6 @@ public class SelectedShape implements IDrawShapeStrategy {
     public void drawFilledAndOutlinedShape(PaintCanvasBase paintCanvas)
     {
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        Stroke stroke = new BasicStroke(8, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.BLACK);
         switch (type)

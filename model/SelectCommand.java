@@ -2,7 +2,6 @@ package model;
 
 import controller.Point;
 import model.interfaces.ICommand;
-import model.interfaces.IDrawShapeStrategy;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -77,7 +76,7 @@ public class SelectCommand implements ICommand
             }
 
         }
-        shapeList.redrawMasterList();
-        shapeList.redrawSelectedList();
+        shapeList.drawMasterList();
+        shapeList.drawSelectedList();
     }
 }

@@ -17,7 +17,7 @@ public class ShapeList
         this.paintCanvas = paintCanvas;
     }
 
-    void redrawMasterList()
+    void drawMasterList()
     {
         for (Shape shape: createdShapeList)
         {
@@ -27,7 +27,7 @@ public class ShapeList
         }
     }
 
-    void redrawSelectedList()
+    void drawSelectedList()
     {
         for (Shape shape: selectedShapeList)
         {
@@ -41,10 +41,30 @@ public class ShapeList
             int[] yValues = shape.getTriangleYValues();
 
             ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = new SelectedShape(factory.setStrategy(), XOrigin, YOrigin, height, width, xValues, yValues, type);
+            IDrawShapeStrategy strategy = new SelectedShapeDecorator(factory.setStrategy(), XOrigin, YOrigin, height, width, xValues, yValues, type);
             factory.drawShape(strategy, paintCanvas);
         }
     }
 
+    void drawCopiedList()
+    {
+        for (Shape shape: copyShapeList)
+        {
+            ShapeFactory factory = new ShapeFactory(shape);
+            IDrawShapeStrategy strategy = factory.setStrategy();
+            factory.drawShape(strategy, paintCanvas);
+            createdShapeList.add(shape);
+        }
+    }
 
+    void deleteSelectedList()
+    {
+        for (Shape shape: selectedShapeList)
+        {
+            ShapeFactory factory = new ShapeFactory(shape);
+            IDrawShapeStrategy strategy = new NullShape();
+
+        }
+
+    }
 }

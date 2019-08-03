@@ -7,20 +7,21 @@ import java.util.EnumMap;
 
 class Shape
 {
-    private ShapeShadingType shadingType;
-    private ShapeType shapeType;
+    ShapeShadingType shadingType;
+    ShapeType shapeType;
     Point pointEnd;
     Point pointStart;
     Color shapePrimaryColor;
     Color shapeSecondaryColor;
-
-    private int width;
-    private int height;
+    IApplicationState currentState;
+    int width;
+    int height;
     private int[] xValues = new int[3];
     private int[] yValues = new int[3];
 
     Shape(IApplicationState currentState, Point pointEnd, Point pointStart)
     {
+        this.currentState = currentState;
         ShapeColor selectedPrimaryColor = currentState.getActivePrimaryColor();
         ShapeColor selectedSecondaryColor = currentState.getActiveSecondaryColor();
         shadingType = currentState.getActiveShapeShadingType();
