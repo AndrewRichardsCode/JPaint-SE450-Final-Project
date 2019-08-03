@@ -51,4 +51,5 @@ class ShapeFactory
             default:                    throw new Error();
         }
     }
+
 }

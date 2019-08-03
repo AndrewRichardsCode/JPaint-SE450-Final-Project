@@ -32,7 +32,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        ShapeList shapeList = new ShapeList();
+        ShapeList shapeList = new ShapeList(paintCanvas);
         MouseHandler mouse = new MouseHandler(appState, paintCanvas, shapeList);
         paintCanvas.addMouseListener(mouse);
 

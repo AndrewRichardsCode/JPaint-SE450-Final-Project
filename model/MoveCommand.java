@@ -46,12 +46,7 @@ public class MoveCommand implements ICommand
             shape.pointStart = new Point (xStartValue + deltaX, yStartValue + deltaY);
             shape.pointEnd = new Point (xEndValue + deltaX, yEndValue + deltaY);
         }
-
-        for (Shape shape: shapeList.createdShapeList)
-        {
-            ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = factory.setStrategy();
-            factory.drawShape(strategy, paintCanvas);
-        }
+        shapeList.redrawMasterList();
+        shapeList.redrawSelectedList();
     }
 }
