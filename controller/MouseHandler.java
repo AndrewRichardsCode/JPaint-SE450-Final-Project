@@ -3,20 +3,17 @@ package controller;
 import java.awt.event.*;
 import model.*;
 import model.interfaces.*;
-import view.interfaces.PaintCanvasBase;
 
 public class MouseHandler extends MouseAdapter
 {
 
     private IApplicationState currentState;
-    private PaintCanvasBase paintCanvas;
     private Point pointStart;
     private ShapeList shapeList;
 
-    public MouseHandler(IApplicationState currentState, PaintCanvasBase paintCanvas, ShapeList shapeList)
+    public MouseHandler(IApplicationState currentState, ShapeList shapeList)
     {
         this.currentState = currentState;
-        this.paintCanvas = paintCanvas;
         this.shapeList = shapeList;
     }
 
@@ -34,7 +31,7 @@ public class MouseHandler extends MouseAdapter
 
         if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.DRAW))
         {
-            command = new DrawCommand(currentState, shapeList, paintCanvas, pointStart, pointEnd);
+            command = new DrawCommand(currentState, shapeList, pointStart, pointEnd);
             command.run();
         }
         else if(currentState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.SELECT))

@@ -24,7 +24,7 @@ public class Main {
         ApplicationState appState = new ApplicationState(uiModule);
         ShapeList shapeList = new ShapeList(paintCanvas);
         IJPaintController controller = new JPaintController(uiModule, appState, shapeList);
-        MouseHandler mouse = new MouseHandler(appState, paintCanvas, shapeList);
+        MouseHandler mouse = new MouseHandler(appState, shapeList);
 
         controller.setup();
         paintCanvas.addMouseListener(mouse);
