@@ -22,11 +22,13 @@ public class CopyCommand implements ICommand
             shapeList.copyShapeList = new ArrayList<>();
 
             for (Shape shape : shapeList.selectedShapeList) {
-                Shape copiedShape = new Shape(shape.currentState, new Point(shape.width, shape.height), new Point(0, 0));
+
+                Shape copiedShape = new Shape(shape.currentState, new Point(shape.getWidth(), shape.getHeight()), new Point(0, 0));
                 copiedShape.shapeType = shape.shapeType;
                 copiedShape.shadingType = shape.shadingType;
                 copiedShape.shapePrimaryColor = shape.shapePrimaryColor;
                 copiedShape.shapeSecondaryColor = shape.shapeSecondaryColor;
+                copiedShape.setStrategy();
                 shapeList.copyShapeList.add(copiedShape);
             }
         }

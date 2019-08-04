@@ -36,6 +36,11 @@ public class MoveCommand implements ICommand
 
                 shape.pointStart = new Point(xStartValue + deltaX, yStartValue + deltaY);
                 shape.pointEnd = new Point(xEndValue + deltaX, yEndValue + deltaY);
+                shape.setXOrigin();
+                shape.setYOrigin();
+                shape.setTriangleXValues();
+                shape.setTriangleYValues();
+                shape.setStrategy();
             }
             shapeList.drawMasterList();
             shapeList.drawSelectedList();

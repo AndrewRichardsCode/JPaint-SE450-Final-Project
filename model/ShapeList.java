@@ -12,6 +12,7 @@ public class ShapeList
     ArrayList <Shape> createdShapeList = new ArrayList<>();
     ArrayList <Shape> selectedShapeList;
     ArrayList <Shape> copyShapeList;
+    private IDrawShapeStrategy nullShape = new NullShape();
 
     public ShapeList(PaintCanvasBase paintCanvas)
     {
@@ -25,10 +26,8 @@ public class ShapeList
         g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         for (Shape shape: createdShapeList)
         {
-
             ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = factory.setStrategy();
-            factory.drawShape(strategy, paintCanvas);
+            factory.drawShape(shape.strategy, paintCanvas);
         }
     }
 
@@ -36,18 +35,19 @@ public class ShapeList
     {
         for (Shape shape: selectedShapeList)
         {
+            //if(shape.strategy != nullShape) {
+                ShapeType type = shape.getShapeType();
+                int XOrigin = shape.getXOrigin();
+                int YOrigin = shape.getYOrigin();
+                int height = shape.getHeight();
+                int width = shape.getWidth();
+                int[] xValues = shape.getXValues();
+                int[] yValues = shape.getYValues();
 
-            ShapeType type = shape.getShapeType();
-            int XOrigin = shape.getXOrigin();
-            int YOrigin = shape.getYOrigin();
-            int height = shape.getHeight();
-            int width = shape.getWidth();
-            int[] xValues = shape.getTriangleXValues();
-            int[] yValues = shape.getTriangleYValues();
-
-            ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = new SelectedShapeDecorator(factory.setStrategy(), XOrigin, YOrigin, height, width, xValues, yValues, type);
-            factory.drawShape(strategy, paintCanvas);
+                ShapeFactory factory = new ShapeFactory(shape);
+                IDrawShapeStrategy strategy = new SelectedShapeDecorator(shape.strategy, XOrigin, YOrigin, height, width, xValues, yValues, type);
+                factory.drawShape(strategy, paintCanvas);
+            //}
         }
     }
 
@@ -56,8 +56,7 @@ public class ShapeList
         for (Shape shape: copyShapeList)
         {
             ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = factory.setStrategy();
-            factory.drawShape(strategy, paintCanvas);
+            factory.drawShape(shape.strategy, paintCanvas);
             createdShapeList.add(shape);
         }
     }
@@ -66,6 +65,7 @@ public class ShapeList
     {
         for (Shape shape: selectedShapeList)
         {
+            shape.strategy = nullShape;//get rid of this pattern?
             createdShapeList.remove(shape);
         }
         selectedShapeList = new ArrayList<>();
