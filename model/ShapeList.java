@@ -57,13 +57,4 @@ public class ShapeList
             createdShapeList.add(shape);
         }
     }
-
-    /*void deleteSelectedList()
-    {
-        for (Shape shape: selectedShapeList)
-        {
-            createdShapeList.remove(shape);
-        }
-        selectedShapeList = new ArrayList<>();
-    }*/
 }

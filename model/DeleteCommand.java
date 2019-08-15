@@ -25,7 +25,7 @@ public class DeleteCommand implements ICommand, IUndoRedo
                 shapeList.createdShapeList.remove(shape);
             }
             selectedShapeListCopy = shapeList.selectedShapeList;
-            //shapeList.selectedShapeList = new ArrayList<>();
+            shapeList.selectedShapeList = new ArrayList<>();
             shapeList.drawMasterList();
             CommandHistory.add(this);
         }
@@ -35,6 +35,7 @@ public class DeleteCommand implements ICommand, IUndoRedo
     public void undo()
     {
         shapeList.createdShapeList.addAll(selectedShapeListCopy);
+        shapeList.selectedShapeList = selectedShapeListCopy;
         shapeList.drawMasterList();
     }
 
@@ -45,6 +46,7 @@ public class DeleteCommand implements ICommand, IUndoRedo
         {
             shapeList.createdShapeList.remove(shape);
         }
+        shapeList.selectedShapeList = new ArrayList<>();
         shapeList.drawMasterList();
     }
 }
