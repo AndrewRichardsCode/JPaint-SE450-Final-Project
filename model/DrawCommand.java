@@ -3,12 +3,13 @@ package model;
 import controller.Point;
 import model.interfaces.*;
 
-public class DrawCommand implements ICommand
+public class DrawCommand implements ICommand, IUndoRedo
 {
     private IApplicationState currentState;
     private Point pointStart;
     private Point pointEnd;
     private ShapeList shapeList;
+    private Shape shape;
 
     public DrawCommand (IApplicationState currentState, ShapeList shapeList, Point pointStart, Point pointEnd)
     {
@@ -21,7 +22,21 @@ public class DrawCommand implements ICommand
     @Override
     public void run()
     {
-        Shape shape = new Shape(currentState, pointEnd, pointStart);
+        shape = new Shape(currentState, pointEnd, pointStart);
+        shapeList.createdShapeList.add(shape);
+        shapeList.drawMasterList();
+        CommandHistory.add(this);
+    }
+
+    @Override
+    public void undo(){
+        shapeList.createdShapeList.remove(shape);
+        shapeList.drawMasterList();
+    }
+
+    @Override
+    public void redo()
+    {
         shapeList.createdShapeList.add(shape);
         shapeList.drawMasterList();
     }

@@ -1,10 +1,14 @@
 package model;
 
 import model.interfaces.ICommand;
+import model.interfaces.IUndoRedo;
 
-public class DeleteCommand implements ICommand
+import java.util.ArrayList;
+
+public class DeleteCommand implements ICommand, IUndoRedo
 {
     private ShapeList shapeList;
+    private ArrayList<Shape> selectedShapeListCopy;
 
     public DeleteCommand(ShapeList shapeList)
     {
@@ -16,8 +20,31 @@ public class DeleteCommand implements ICommand
     {
         if(shapeList.selectedShapeList != null)
         {
-            shapeList.deleteSelectedList();
+            for (Shape shape: shapeList.selectedShapeList)
+            {
+                shapeList.createdShapeList.remove(shape);
+            }
+            selectedShapeListCopy = shapeList.selectedShapeList;
+            //shapeList.selectedShapeList = new ArrayList<>();
             shapeList.drawMasterList();
+            CommandHistory.add(this);
         }
+    }
+
+    @Override
+    public void undo()
+    {
+        shapeList.createdShapeList.addAll(selectedShapeListCopy);
+        shapeList.drawMasterList();
+    }
+
+    @Override
+    public void redo()
+    {
+        for (Shape shape: selectedShapeListCopy)
+        {
+            shapeList.createdShapeList.remove(shape);
+        }
+        shapeList.drawMasterList();
     }
 }

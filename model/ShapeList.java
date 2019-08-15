@@ -12,7 +12,6 @@ public class ShapeList
     ArrayList <Shape> createdShapeList = new ArrayList<>();
     ArrayList <Shape> selectedShapeList;
     ArrayList <Shape> copyShapeList;
-    private IDrawShapeStrategy nullShape = new NullShape();
 
     public ShapeList(PaintCanvasBase paintCanvas)
     {
@@ -35,19 +34,17 @@ public class ShapeList
     {
         for (Shape shape: selectedShapeList)
         {
-            //if(shape.strategy != nullShape) {
-                ShapeType type = shape.getShapeType();
-                int XOrigin = shape.getXOrigin();
-                int YOrigin = shape.getYOrigin();
-                int height = shape.getHeight();
-                int width = shape.getWidth();
-                int[] xValues = shape.getXValues();
-                int[] yValues = shape.getYValues();
+            ShapeType type = shape.getShapeType();
+            int XOrigin = shape.getXOrigin();
+            int YOrigin = shape.getYOrigin();
+            int height = shape.getHeight();
+            int width = shape.getWidth();
+            int[] xValues = shape.getXValues();
+            int[] yValues = shape.getYValues();
 
-                ShapeFactory factory = new ShapeFactory(shape);
-                IDrawShapeStrategy strategy = new SelectedShapeDecorator(shape.strategy, XOrigin, YOrigin, height, width, xValues, yValues, type);
-                factory.drawShape(strategy, paintCanvas);
-            //}
+            ShapeFactory factory = new ShapeFactory(shape);
+            IDrawShapeStrategy strategy = new SelectedShapeDecorator(shape.strategy, XOrigin, YOrigin, height, width, xValues, yValues, type);
+            factory.drawShape(strategy, paintCanvas);
         }
     }
 
@@ -61,13 +58,12 @@ public class ShapeList
         }
     }
 
-    void deleteSelectedList()
+    /*void deleteSelectedList()
     {
         for (Shape shape: selectedShapeList)
         {
-            shape.strategy = nullShape;//get rid of this pattern?
             createdShapeList.remove(shape);
         }
         selectedShapeList = new ArrayList<>();
-    }
+    }*/
 }
