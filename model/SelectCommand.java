@@ -57,7 +57,6 @@ public class SelectCommand implements ICommand
         for (IShapeDrawer shapeDrawer: shapeList.createdShapeList)
         {
             ArrayList<Shape> shapes = shapeDrawer.getShape();
-            //if (shapes.size() > 1){}
             for (Shape shape: shapes)
             {
                 shapeX = shape.pointStart.getX();

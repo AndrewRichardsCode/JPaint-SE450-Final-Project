@@ -37,7 +37,8 @@ public class UngroupCommand implements ICommand, IUndoRedo
                         shapeList.createdShapeList.add(newShapeDrawer);
                         groupedShapesCopy.add(newShapeDrawer);
                     }
-                    for (IShapeDrawer newShapeDrawer : groupedShapesCopy) {
+                    for (IShapeDrawer newShapeDrawer : groupedShapesCopy)
+                    {
                         shapeGroup.addChild(newShapeDrawer);
                     }
                 }
