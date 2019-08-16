@@ -2,12 +2,15 @@ package model;
 
 import controller.Point;
 import model.interfaces.ICommand;
+import model.interfaces.IShapeDrawer;
 import model.interfaces.IUndoRedo;
+
+import java.util.ArrayList;
 
 public class MoveCommand implements ICommand, IUndoRedo
 {
-    private Point pointStart;
-    private Point pointEnd;
+    //private Point pointStart;
+    //private Point pointEnd;
     private ShapeList shapeList;
     private int deltaX;
     private int deltaY;
@@ -18,9 +21,11 @@ public class MoveCommand implements ICommand, IUndoRedo
 
     public MoveCommand (Point pointStart, Point pointEnd, ShapeList shapeList)
     {
-        this.pointStart = pointStart;
-        this.pointEnd = pointEnd;
+        //this.pointStart = pointStart;
+        //this.pointEnd = pointEnd;
         this.shapeList = shapeList;
+        deltaX = pointEnd.getX() - pointStart.getX();
+        deltaY = pointEnd.getY() - pointStart.getY();
     }
 
     @Override
@@ -28,11 +33,66 @@ public class MoveCommand implements ICommand, IUndoRedo
     {
         if(shapeList.selectedShapeList != null)
         {
+            for (IShapeDrawer shapeDrawer : shapeList.selectedShapeList)
+            {
+                ArrayList<Shape> shapes = shapeDrawer.getShape();
+                for (Shape shape: shapes)
+                {
+                    xStartValue = shape.pointStart.getX();
+                    yStartValue = shape.pointStart.getY();
+                    xEndValue = shape.pointEnd.getX();
+                    yEndValue = shape.pointEnd.getY();
 
-            deltaX = pointEnd.getX() - pointStart.getX();
-            deltaY = pointEnd.getY() - pointStart.getY();
+                    shape.pointStart = new Point(xStartValue + deltaX, yStartValue + deltaY);
+                    shape.pointEnd = new Point(xEndValue + deltaX, yEndValue + deltaY);
+                    shape.setXOrigin();
+                    shape.setYOrigin();
+                    shape.setTriangleXValues();
+                    shape.setTriangleYValues();
+                    shape.setStrategy();
+                }
+            }
+            shapeList.drawMasterList();
+            shapeList.drawSelectedList();
 
-            for (Shape shape : shapeList.selectedShapeList) {
+            CommandHistory.add(this);
+        }
+    }
+
+    @Override
+    public void undo()
+    {
+        for (IShapeDrawer shapeDrawer : shapeList.selectedShapeList)
+        {
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            for (Shape shape: shapes)
+            {
+                xStartValue = shape.pointStart.getX();
+                yStartValue = shape.pointStart.getY();
+                xEndValue = shape.pointEnd.getX();
+                yEndValue = shape.pointEnd.getY();
+
+                shape.pointStart = new Point(xStartValue - deltaX, yStartValue - deltaY);
+                shape.pointEnd = new Point(xEndValue - deltaX, yEndValue - deltaY);
+                shape.setXOrigin();
+                shape.setYOrigin();
+                shape.setTriangleXValues();
+                shape.setTriangleYValues();
+                shape.setStrategy();
+            }
+        }
+        shapeList.drawMasterList();
+        shapeList.drawSelectedList();
+    }
+
+    @Override
+    public void redo()
+    {
+        for (IShapeDrawer shapeDrawer : shapeList.selectedShapeList)
+        {
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            for (Shape shape: shapes)
+            {
                 xStartValue = shape.pointStart.getX();
                 yStartValue = shape.pointStart.getY();
                 xEndValue = shape.pointEnd.getX();
@@ -46,50 +106,6 @@ public class MoveCommand implements ICommand, IUndoRedo
                 shape.setTriangleYValues();
                 shape.setStrategy();
             }
-            shapeList.drawMasterList();
-            shapeList.drawSelectedList();
-
-            CommandHistory.add(this);
-        }
-    }
-
-    @Override
-    public void undo()
-    {
-        for (Shape shape : shapeList.selectedShapeList) {
-            xStartValue = shape.pointStart.getX();
-            yStartValue = shape.pointStart.getY();
-            xEndValue = shape.pointEnd.getX();
-            yEndValue = shape.pointEnd.getY();
-
-            shape.pointStart = new Point(xStartValue - deltaX, yStartValue - deltaY);
-            shape.pointEnd = new Point(xEndValue - deltaX, yEndValue - deltaY);
-            shape.setXOrigin();
-            shape.setYOrigin();
-            shape.setTriangleXValues();
-            shape.setTriangleYValues();
-            shape.setStrategy();
-        }
-        shapeList.drawMasterList();
-        shapeList.drawSelectedList();
-    }
-
-    @Override
-    public void redo()
-    {
-        for (Shape shape : shapeList.selectedShapeList) {
-            xStartValue = shape.pointStart.getX();
-            yStartValue = shape.pointStart.getY();
-            xEndValue = shape.pointEnd.getX();
-            yEndValue = shape.pointEnd.getY();
-
-            shape.pointStart = new Point(xStartValue + deltaX, yStartValue + deltaY);
-            shape.pointEnd = new Point(xEndValue + deltaX, yEndValue + deltaY);
-            shape.setXOrigin();
-            shape.setYOrigin();
-            shape.setTriangleXValues();
-            shape.setTriangleYValues();
-            shape.setStrategy();
         }
         shapeList.drawMasterList();
         shapeList.drawSelectedList();

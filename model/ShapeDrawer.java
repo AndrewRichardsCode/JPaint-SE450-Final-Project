@@ -1,18 +1,22 @@
 package model;
 
 import model.interfaces.IDrawShapeStrategy;
+import model.interfaces.IShapeDrawer;
 import view.interfaces.PaintCanvasBase;
 
-class ShapeFactory
+import java.util.ArrayList;
+
+class ShapeDrawer implements IShapeDrawer
 {
     private Shape shape;
 
-    ShapeFactory(Shape shape)
+    ShapeDrawer(Shape shape)
     {
         this.shape = shape;
     }
 
-    void drawShape(IDrawShapeStrategy strategy, PaintCanvasBase paintCanvas)
+    @Override
+    public void drawShape(PaintCanvasBase paintCanvas, IDrawShapeStrategy strategy)
     {
         switch(shape.getShadingType())
         {
@@ -24,5 +28,13 @@ class ShapeFactory
                                         break;
             default:                    throw new Error();
         }
+    }
+
+    @Override
+    public ArrayList<Shape> getShape()
+    {
+        ArrayList<Shape> shapes = new ArrayList<>();
+        shapes.add(shape);
+        return shapes;
     }
 }

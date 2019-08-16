@@ -1,6 +1,7 @@
 package model;
 
 import model.interfaces.ICommand;
+import model.interfaces.IShapeDrawer;
 import model.interfaces.IUndoRedo;
 
 public class PasteCommand implements ICommand, IUndoRedo
@@ -26,9 +27,9 @@ public class PasteCommand implements ICommand, IUndoRedo
     @Override
     public void undo()
     {
-        for (Shape shape : shapeList.copyShapeList)
+        for (IShapeDrawer shapeDrawer : shapeList.copyShapeList)
         {
-            shapeList.createdShapeList.remove(shape);
+            shapeList.createdShapeList.remove(shapeDrawer);
         }
         shapeList.drawMasterList();
     }

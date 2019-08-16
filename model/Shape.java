@@ -7,7 +7,7 @@ import model.interfaces.IDrawShapeStrategy;
 import java.awt.*;
 import java.util.EnumMap;
 
-class Shape
+public class Shape
 {
     IDrawShapeStrategy strategy;
     ShapeShadingType shadingType;

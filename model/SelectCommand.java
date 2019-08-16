@@ -2,6 +2,8 @@ package model;
 
 import controller.Point;
 import model.interfaces.ICommand;
+import model.interfaces.IShapeDrawer;
+
 import java.util.ArrayList;
 
 public class SelectCommand implements ICommand
@@ -52,21 +54,26 @@ public class SelectCommand implements ICommand
         int shapeHeight;
         shapeList.selectedShapeList = new ArrayList<>();
 
-        for (Shape shape: shapeList.createdShapeList)
+        for (IShapeDrawer shapeDrawer: shapeList.createdShapeList)
         {
-            shapeX = shape.pointStart.getX();
-            shapeY = shape.pointStart.getY();
-            shapeWidth = shape.getWidth();
-            shapeHeight = shape.getHeight();
-
-            if( (selectionX < shapeX + shapeWidth)      &&
-                (selectionX + selectionWidth > shapeX)  &&
-                (selectionY < shapeY + shapeHeight)     &&
-                (selectionY + selectionHeight > shapeY))
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            //if (shapes.size() > 1){}
+            for (Shape shape: shapes)
             {
-                shapeList.selectedShapeList.add(shape);
-            }
+                shapeX = shape.pointStart.getX();
+                shapeY = shape.pointStart.getY();
+                shapeWidth = shape.getWidth();
+                shapeHeight = shape.getHeight();
 
+                if ((selectionX < shapeX + shapeWidth) &&
+                    (selectionX + selectionWidth > shapeX) &&
+                    (selectionY < shapeY + shapeHeight) &&
+                    (selectionY + selectionHeight > shapeY) &&
+                    !shapeList.selectedShapeList.contains(shapeDrawer))
+                {
+                    shapeList.selectedShapeList.add(shapeDrawer);
+                }
+            }
         }
         shapeList.drawMasterList();
         shapeList.drawSelectedList();

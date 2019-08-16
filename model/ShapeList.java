@@ -1,6 +1,7 @@
 package model;
 
 import model.interfaces.IDrawShapeStrategy;
+import model.interfaces.IShapeDrawer;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 public class ShapeList
 {
     private PaintCanvasBase paintCanvas;
-    ArrayList <Shape> createdShapeList = new ArrayList<>();
-    ArrayList <Shape> selectedShapeList;
-    ArrayList <Shape> copyShapeList;
+    ArrayList <IShapeDrawer> createdShapeList = new ArrayList<>();
+    ArrayList <IShapeDrawer> selectedShapeList;
+    ArrayList <IShapeDrawer> copyShapeList;
 
     public ShapeList(PaintCanvasBase paintCanvas)
     {
@@ -23,38 +24,49 @@ public class ShapeList
         Graphics2D g = paintCanvas.getGraphics2D();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
-        for (Shape shape: createdShapeList)
+        for (IShapeDrawer shapeDrawer: createdShapeList)
         {
-            ShapeFactory factory = new ShapeFactory(shape);
-            factory.drawShape(shape.strategy, paintCanvas);
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            for (Shape shape: shapes)
+            {
+                IDrawShapeStrategy strategy = shape.strategy;
+                shapeDrawer.drawShape(paintCanvas, strategy);
+            }
         }
     }
 
     void drawSelectedList()
     {
-        for (Shape shape: selectedShapeList)
+        for (IShapeDrawer shapeDrawer: selectedShapeList)
         {
-            ShapeType type = shape.getShapeType();
-            int XOrigin = shape.getXOrigin();
-            int YOrigin = shape.getYOrigin();
-            int height = shape.getHeight();
-            int width = shape.getWidth();
-            int[] xValues = shape.getXValues();
-            int[] yValues = shape.getYValues();
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            for (Shape shape: shapes)
+            {
+                ShapeType type = shape.getShapeType();
+                int XOrigin = shape.getXOrigin();
+                int YOrigin = shape.getYOrigin();
+                int height = shape.getHeight();
+                int width = shape.getWidth();
+                int[] xValues = shape.getXValues();
+                int[] yValues = shape.getYValues();
 
-            ShapeFactory factory = new ShapeFactory(shape);
-            IDrawShapeStrategy strategy = new SelectedShapeDecorator(shape.strategy, XOrigin, YOrigin, height, width, xValues, yValues, type);
-            factory.drawShape(strategy, paintCanvas);
+                IDrawShapeStrategy strategy = new SelectedShapeDecorator(shape.strategy, XOrigin, YOrigin, height, width, xValues, yValues, type);
+                shapeDrawer.drawShape(paintCanvas, strategy);
+            }
         }
     }
 
     void drawCopiedList()
     {
-        for (Shape shape: copyShapeList)
+        for (IShapeDrawer shapeDrawer: copyShapeList)
         {
-            ShapeFactory factory = new ShapeFactory(shape);
-            factory.drawShape(shape.strategy, paintCanvas);
-            createdShapeList.add(shape);
+            ArrayList<Shape> shapes = shapeDrawer.getShape();
+            for (Shape shape: shapes)
+            {
+                IDrawShapeStrategy strategy = shape.strategy;
+                shapeDrawer.drawShape(paintCanvas, strategy);
+                createdShapeList.add(shapeDrawer);
+            }
         }
     }
 }

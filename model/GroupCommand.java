@@ -6,12 +6,12 @@ import model.interfaces.IUndoRedo;
 
 import java.util.ArrayList;
 
-public class DeleteCommand implements ICommand, IUndoRedo
+public class GroupCommand implements ICommand, IUndoRedo
 {
     private ShapeList shapeList;
-    private ArrayList<IShapeDrawer> selectedShapeListCopy;
+    private ShapeGroup shapeGroup;
 
-    public DeleteCommand(ShapeList shapeList)
+    public GroupCommand(ShapeList shapeList)
     {
         this.shapeList = shapeList;
     }
@@ -21,13 +21,16 @@ public class DeleteCommand implements ICommand, IUndoRedo
     {
         if(shapeList.selectedShapeList != null)
         {
+            shapeGroup = new ShapeGroup();
             for (IShapeDrawer shapeDrawer: shapeList.selectedShapeList)
             {
                 shapeList.createdShapeList.remove(shapeDrawer);
+
+                shapeGroup.addChild(shapeDrawer);
             }
-            selectedShapeListCopy = shapeList.selectedShapeList;
-            shapeList.selectedShapeList = new ArrayList<>();
+            shapeList.createdShapeList.add(shapeGroup);
             shapeList.drawMasterList();
+            shapeList.selectedShapeList = new ArrayList<>();
             CommandHistory.add(this);
         }
     }
@@ -35,18 +38,19 @@ public class DeleteCommand implements ICommand, IUndoRedo
     @Override
     public void undo()
     {
-        shapeList.createdShapeList.addAll(selectedShapeListCopy);
-        shapeList.selectedShapeList = selectedShapeListCopy;
+        shapeList.createdShapeList.remove(shapeGroup);
+        ArrayList<IShapeDrawer> shapes =  shapeGroup.children;
+        shapeList.createdShapeList.addAll(shapes);
+        shapeList.selectedShapeList = new ArrayList<>();
         shapeList.drawMasterList();
     }
 
     @Override
     public void redo()
     {
-        for (IShapeDrawer shapeDrawer: selectedShapeListCopy)
-        {
-            shapeList.createdShapeList.remove(shapeDrawer);
-        }
+        ArrayList<IShapeDrawer> shapes =  shapeGroup.children;
+        shapeList.createdShapeList.removeAll(shapes);
+        shapeList.createdShapeList.add(shapeGroup);
         shapeList.selectedShapeList = new ArrayList<>();
         shapeList.drawMasterList();
     }

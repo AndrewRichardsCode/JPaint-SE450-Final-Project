@@ -9,7 +9,7 @@ public class DrawCommand implements ICommand, IUndoRedo
     private Point pointStart;
     private Point pointEnd;
     private ShapeList shapeList;
-    private Shape shape;
+    private ShapeDrawer shapeDrawer;
 
     public DrawCommand (IApplicationState currentState, ShapeList shapeList, Point pointStart, Point pointEnd)
     {
@@ -22,22 +22,23 @@ public class DrawCommand implements ICommand, IUndoRedo
     @Override
     public void run()
     {
-        shape = new Shape(currentState, pointEnd, pointStart);
-        shapeList.createdShapeList.add(shape);
+        Shape shape = new Shape(currentState, pointEnd, pointStart);
+        shapeDrawer = new ShapeDrawer(shape);
+        shapeList.createdShapeList.add(shapeDrawer);
         shapeList.drawMasterList();
         CommandHistory.add(this);
     }
 
     @Override
     public void undo(){
-        shapeList.createdShapeList.remove(shape);
+        shapeList.createdShapeList.remove(shapeDrawer);
         shapeList.drawMasterList();
     }
 
     @Override
     public void redo()
     {
-        shapeList.createdShapeList.add(shape);
+        shapeList.createdShapeList.add(shapeDrawer);
         shapeList.drawMasterList();
     }
 }
