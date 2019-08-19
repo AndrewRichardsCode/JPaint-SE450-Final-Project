@@ -15,7 +15,6 @@ import view.interfaces.IUiModule;
 public class Main {
     public static void main(String[] args){
         PaintCanvasBase paintCanvas = PaintCanvas.getInstance();
-
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
@@ -25,16 +24,5 @@ public class Main {
 
         controller.setup();
         paintCanvas.addMouseListener(mouse);
-
-        // For example purposes only; remove all lines below from your final project.
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-
-
     }
 }

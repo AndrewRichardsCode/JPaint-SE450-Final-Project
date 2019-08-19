@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class MoveCommand implements ICommand, IUndoRedo
 {
-    //private Point pointStart;
-    //private Point pointEnd;
     private ShapeList shapeList;
     private int deltaX;
     private int deltaY;
@@ -21,8 +19,6 @@ public class MoveCommand implements ICommand, IUndoRedo
 
     public MoveCommand (Point pointStart, Point pointEnd, ShapeList shapeList)
     {
-        //this.pointStart = pointStart;
-        //this.pointEnd = pointEnd;
         this.shapeList = shapeList;
         deltaX = pointEnd.getX() - pointStart.getX();
         deltaY = pointEnd.getY() - pointStart.getY();

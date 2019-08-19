@@ -44,6 +44,5 @@ public class MouseHandler extends MouseAdapter
             command = new MoveCommand(pointStart, pointEnd, shapeList);
             command.run();
         }
-        //command.run();
     }
 }
